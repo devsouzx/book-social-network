@@ -1,6 +1,7 @@
 package com.devsouzx.book_network.book;
 
 import com.devsouzx.book_network.user.User;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -17,5 +18,11 @@ public class BookService {
         Book book = bookMapper.toBook(request);
         book.setOwner(user);
         return bookRepository.save(book).getId();
+    }
+
+    public BookResponse findById(Integer bookId) {
+        return bookRepository.findById(bookId)
+                .map(bookMapper::toBookResponse)
+                .orElseThrow(() -> new EntityNotFoundException("No book found with ID:: " + bookId));
     }
 }
