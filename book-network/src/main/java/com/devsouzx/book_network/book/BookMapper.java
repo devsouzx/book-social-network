@@ -1,12 +1,12 @@
 package com.devsouzx.book_network.book;
 
+import com.devsouzx.book_network.file.FileUtils;
 import com.devsouzx.book_network.history.BookTransactionHistory;
-import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
 
 @Service
 public class BookMapper {
-    public Book toBook(@Valid BookRequest request) {
+    public Book toBook(BookRequest request) {
         return Book.builder()
                 .id(request.id())
                 .title(request.title())
@@ -29,7 +29,7 @@ public class BookMapper {
                 .archived(book.isArchived())
                 .shareable(book.isShareable())
                 .owner(book.getOwner().fullName())
-                // .cover()
+                .cover(FileUtils.readFileFromLocation(book.getBookCover()))
                 .build();
     }
 
