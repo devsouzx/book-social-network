@@ -30,6 +30,9 @@ spring:
         writetimeout: 5000
 
 application:
+  file:
+    uploads:
+      photos-output-path: ./uploads
   security:
     jwt:
       secret-key: 404E635266556A586E3272357538782F413F4428472B4B625064536756685970
